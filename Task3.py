@@ -3,6 +3,7 @@ Read file into texts and calls.
 It's ok if you don't understand how to read files.
 """
 import csv
+from typing import List
 
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
@@ -42,4 +43,41 @@ Print the answer as a part of a message::
 "<percentage> percent of calls from fixed lines in Bangalore are calls
 to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
+
 """
+
+
+def findAreaCodes(phoneNumber):
+    areaCode = None
+    phoneNumber = str(phoneNumber)
+    if phoneNumber.startswith('('):
+        areaCode = phoneNumber[0: phoneNumber.find(')') + 1]
+    elif phoneNumber.startswith('140'):
+        areaCode = '140'
+    else:
+        areaCode = phoneNumber[0:4]
+    return areaCode
+
+
+totalCallsFromBanglore = 0
+callsToBanglore = 0
+codes: List[str] = []
+for call in calls:
+    if "(080)" == call[0][0:5]:
+        totalCallsFromBanglore += 1
+        code = findAreaCodes(call[1])
+        if code == "(080)":
+            callsToBanglore += 1
+        if code not in codes:
+            codes.append(code)
+
+print("The numbers called by people in Bangalore have codes:")
+for code in sorted(codes):
+    print(' {}'.format(code))
+
+
+percentage = (callsToBanglore/totalCallsFromBanglore)*100
+
+print("{} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore."
+      .format(round(percentage, 2)))
+

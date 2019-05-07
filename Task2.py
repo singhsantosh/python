@@ -3,6 +3,7 @@ Read file into texts and calls.
 It's ok if you don't understand how to read files
 """
 import csv
+
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
     texts = list(reader)
@@ -26,5 +27,6 @@ for call in calls:
     if int(call[-1]) > int(callWithLongestTime[-1]):
         callWithLongestTime = call
 
-#print(callWithLongestTime)
-print("{},{} spent the longest time, {} seconds, on the phone during September 2016.".format(callWithLongestTime[0], callWithLongestTime[1], callWithLongestTime[-1]))
+print("{},{} spent the longest time, {} seconds, on the phone during September 2016.".format(callWithLongestTime[0],
+                                                                                             callWithLongestTime[1],
+                                                                                             callWithLongestTime[-1]))
