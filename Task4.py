@@ -26,26 +26,23 @@ The list of numbers should be print out one per line in lexicographic order with
 """
 
 telemarketers = []
-others = []
-callers = []
+othersMap = {}
+callersMap = {}
 
 for call in calls:
-    if call[0] not in callers:
-        callers.append(call[0])
-    if call[1] not in others:
-        others.append(call[1])
+    callersMap[call[0]] = 'callers'
+    othersMap[call[1]] = 'others'
 
 for text in texts:
-    if text[0] not in others:
-        others.append(text[0])
-    if text[1] not in others:
-        others.append(text[1])
+    othersMap[text[0]] = 'others'
+    othersMap[text[1]] = 'others'
 
-for ph in callers:
-    if ph not in others:
+
+for ph in callersMap.keys():
+    if ph not in othersMap:
         telemarketers.append(ph)
 
 print("These numbers could be telemarketers: ")
 
-for ph in telemarketers:
+for ph in sorted(telemarketers):
     print(ph)

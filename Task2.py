@@ -21,12 +21,26 @@ Print a message:
 September 2016.".
 """
 
-callWithLongestTime = calls[0]
+# phoneToCallMap contains phone as key and total no of seconds spent by that phone as value
+phoneToCallMap = {}
 
 for call in calls:
-    if int(call[-1]) > int(callWithLongestTime[-1]):
-        callWithLongestTime = call
+    if call[0] not in phoneToCallMap:
+        phoneToCallMap[call[0]] = call[-1]
+    else:
+        phoneToCallMap[call[0]] = str(int(phoneToCallMap[call[0]]) + int(call[-1]))
+    if call[1] not in phoneToCallMap:
+        phoneToCallMap[call[1]] = call[-1]
+    else:
+        phoneToCallMap[call[1]] = str(int(phoneToCallMap[call[1]]) + int(call[-1]))
 
-print("{},{} spent the longest time, {} seconds, on the phone during September 2016.".format(callWithLongestTime[0],
-                                                                                             callWithLongestTime[1],
-                                                                                             callWithLongestTime[-1]))
+phoneWithLongestTime = None
+longestDuration = 0
+
+for k, v in phoneToCallMap.items():
+    if int(v) > int(longestDuration):
+        longestDuration = v
+        phoneWithLongestTime = k
+
+print("{} spent the longest time, {} seconds, on the phone during September 2016."
+      .format(phoneWithLongestTime, longestDuration))
