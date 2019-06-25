@@ -1,0 +1,8 @@
+.idea
+.DS_Store
+.idea/encodings.xml
+*.zip
+submit/.DS_Store
+submit/*.*
+lists/__pycache__/*
+Analysis.txt
