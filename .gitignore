@@ -7,3 +7,4 @@ submit/*.*
 lists/__pycache__/*
 Analysis.txt
 udacitypython/**
+.vscode/**
