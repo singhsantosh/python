@@ -6,5 +6,4 @@ submit/.DS_Store
 submit/*.*
 lists/__pycache__/*
 Analysis.txt
-udacitypython/.Python
-udacitypython/*.*
+udacitypython/**
