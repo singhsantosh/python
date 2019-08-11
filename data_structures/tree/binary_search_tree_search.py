@@ -67,32 +67,77 @@ class Queue():
         else:
             return "<queue is empty>"
 
+
 class Tree():
-    def __init__(self, value=None):
+    def __init__(self):
+        self.root = None
+
+    def set_root(self, value):
         self.root = Node(value)
 
     def get_root(self):
         return self.root
 
+    def compare(self, node, new_node):
+        """
+        0 means new_node equals node
+        -1 means new node less than existing node
+        1 means new node greater than existing node
+        """
+        if new_node.get_value() == node.get_value():
+            return 0
+        elif new_node.get_value() < node.get_value():
+            return -1
+        else:
+            return 1
+
+    def insert(self, new_value):
+        new_node = Node(new_value)
+        node = self.get_root()
+        if node == None:
+            self.root = new_node
+            return
+
+        while (True):
+            comparison = self.compare(node, new_node)
+            if comparison == 0:
+                # override with new node
+                node = new_node
+                break  # override node, and stop looping
+            elif comparison == -1:
+                # go left
+                if node.has_left_child():
+                    node = node.get_left_child()
+                else:
+                    node.set_left_child(new_node)
+                    break  # inserted node, so stop looping
+            else:  # comparison == 1
+                # go right
+                if node.has_right_child():
+                    node = node.get_right_child()
+                else:
+                    node.set_right_child(new_node)
+                    break  # inserted node, so stop looping
+
+    def search(self, value):
+        node = self.get_root()
+        s_node = Node(value)
+        while (True):
+            comparison = self.compare(node, s_node)
+            if comparison == 0:
+                return True
+            elif comparison == -1:
+                if node.has_left_child():
+                    node = node.get_left_child()
+                else:
+                    return False
+            else:
+                if node.has_right_child():
+                    node = node.get_right_child()
+                else:
+                    return False
+
     def __repr__(self):
-        '''
-
-        write a print function
-        Define the print function for the Tree class. Nodes on the same level are printed on the same line.
-
-        For example, the tree we've been using would print out like this:
-
-        Node(apple)
-        Node(banana) | Node(cherry)
-        Node(dates) | <empty> | <empty> | <empty>
-        <empty> | <empty>
-        We'll have <empty> be placeholders so that we can keep track of which node is a child or parent
-        of the other nodes.
-
-        hint: use a variable to keep track of which level each node is on. For instance, the root node is on level 0,
-        and its child nodes are on level 1.
-
-        '''
         level = 0
         q = Queue()
         visit_order = list()
@@ -126,11 +171,14 @@ class Tree():
 
         return s
 
+tree = Tree()
+tree.insert(5)
+tree.insert(6)
+tree.insert(4)
+tree.insert(2)
 
-# check solution
-tree = Tree("apple")
-tree.get_root().set_left_child(Node("banana"))
-tree.get_root().set_right_child(Node("cherry"))
-tree.get_root().get_left_child().set_left_child(Node("dates"))
-
+print(f"""
+search for 8: {tree.search(8)}
+search for 2: {tree.search(2)}
+""")
 print(tree)
