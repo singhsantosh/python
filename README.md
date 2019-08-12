@@ -1,2 +1,2 @@
-# python
-problems solved in python
+# python data structures and algorithms
+data structures and algoritms problems implemented in python.
